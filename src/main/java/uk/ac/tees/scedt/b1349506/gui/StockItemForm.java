@@ -197,7 +197,7 @@ public class StockItemForm extends javax.swing.JFrame {
                 }
                     double pence = (double) selectedStock.getProductPriceInPence();
                     double unitPrice = (pence /100) + selectedStock.getProductPriceInPounds() ;
-                String stockItemSold = formatter.format(date) +","+ selectedStock.getProductCode() +"," +unitPrice + "," + 1 + newline;
+                String stockItemSold = formatter.format(date) +","+ selectedStock.getProductCode() + "," + 1 +"," +unitPrice + newline;
                 writeToFile(output,stockItemSoldFile, stockItemSold);
             }
         }else {
