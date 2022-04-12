@@ -195,9 +195,8 @@ public class StockItemForm extends javax.swing.JFrame {
                 if(inStock <= 5) {
                 JOptionPane.showMessageDialog(null, productCode+" quantity left: " + inStock, "Low Stock Alert", JOptionPane.WARNING_MESSAGE);
                 }
-                    double pence = (double) selectedStock.getProductPriceInPence();
-                    double unitPrice = (pence /100) + selectedStock.getProductPriceInPounds() ;
-                String stockItemSold = formatter.format(date) +","+ selectedStock.getProductCode() + "," + 1 +"," +unitPrice + newline;
+                    
+                String stockItemSold = formatter.format(date) +","+ selectedStock.getProductCode() + "," + 1 +"," +selectedStock.getUnitPrice() + newline;
                 writeToFile(output,stockItemSoldFile, stockItemSold);
             }
         }else {

@@ -40,8 +40,8 @@ public class ASCStockItem {
     public ASCStockItem(String productCode, String productTitle, String productDesc, int productPriceInPounds,
             int productPriceInPence, int qtyInStock) {
         this.productCode = productCode;
-        this.productTitle = productTitle.substring(0, Math.min(productTitle.length(), 120));
-        this.productDesc = productDesc.substring(0, Math.min(productTitle.length(), 500));
+        this.productTitle = productTitle;
+        this.productDesc = productDesc;
         this.productPriceInPounds = productPriceInPounds;
         this.productPriceInPence = productPriceInPence;
         this.qtyInStock = qtyInStock;
@@ -51,10 +51,10 @@ public class ASCStockItem {
     public ASCStockItem(String productTitle, String productDesc, int productPriceInPounds,
             int productPriceInPence, int qtyInStock) {
         this.productCode = getProductDepartment(productTitle) + 1 + (int) (Math.random() * 10000000);
-        this.productTitle = productTitle.substring(0, Math.min(productTitle.length(), 120));
-        this.productDesc = productDesc.substring(0, Math.min(productTitle.length(), 500));
-        this.productPriceInPounds = +productPriceInPounds;
-        this.productPriceInPence = +productPriceInPence;
+        this.productTitle = productTitle;
+        this.productDesc = productDesc;
+        this.productPriceInPounds = productPriceInPounds;
+        this.productPriceInPence = productPriceInPence;
         this.qtyInStock = qtyInStock;
     }
 
@@ -79,11 +79,11 @@ public class ASCStockItem {
 
 
     public String getProductTitle() {
-        return productTitle;
+        return productTitle.substring(0, Math.min(productTitle.length(), 120)).stripTrailing().stripLeading();
     }
 
     public String getProductDesc() {
-        return productDesc;
+        return productDesc.substring(0, Math.min(productTitle.length(), 500)).stripTrailing().stripLeading();
     }
 
     public double getProductPriceInPounds() {
@@ -92,6 +92,12 @@ public class ASCStockItem {
 
     public int getProductPriceInPence() {
         return productPriceInPence;
+    }
+
+    public double getUnitPrice() {
+        double pence = (double) productPriceInPence;
+        double unitPrice = (pence /100) + productPriceInPounds;
+        return unitPrice;
     }
 
     public int getQtyInStock() {
