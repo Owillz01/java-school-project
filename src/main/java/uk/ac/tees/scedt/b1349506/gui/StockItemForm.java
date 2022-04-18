@@ -4,6 +4,7 @@
  */
 package uk.ac.tees.scedt.b1349506.gui;
 
+import java.awt.GridLayout;
 import java.awt.event.WindowAdapter;
 import java.awt.event.*;
 import java.io.File;
@@ -16,7 +17,12 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.swing.ButtonGroup;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.JTextField;
 import uk.ac.tees.scedt.b1349506.ASCStockInterface;
 
 import uk.ac.tees.scedt.b1349506.ASCStockItem;
@@ -42,11 +48,6 @@ public class StockItemForm extends javax.swing.JFrame {
 //    adapteMsmStockItems(allMeganStockItem, allMeganAdaptedStockItem);
 
     private static List<ASCStockInterface> allStockItems = new ArrayList<>();
-
-//    allStockItems.addAll (allMeganAdaptedStockItem);
-//
-//    allStockItems.addAll (allAscStockItem);
-    
     
 
     /**
@@ -240,8 +241,76 @@ public class StockItemForm extends javax.swing.JFrame {
     }//GEN-LAST:event_sellStockActionPerformed
 
     private void createNewStockItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createNewStockItemActionPerformed
-        // TODO add your handling code here:
+                // TODO add your handling code here:
+        constructNewStockForm();
+        stockItemTable.updateUI();
     }//GEN-LAST:event_createNewStockItemActionPerformed
+
+    private void constructNewStockForm() {
+        JRadioButton runningDept = new JRadioButton();
+        JRadioButton swimmingDept = new JRadioButton();
+        JRadioButton cyclingDept = new JRadioButton();
+        ButtonGroup departmentGroup = new ButtonGroup();
+        JLabel dpeptLabel = new JLabel("Department: ");
+        runningDept.setText("Running");
+        runningDept.setBounds(20, 30, 150, 50);
+        swimmingDept.setText("Swimming");
+        swimmingDept.setBounds(20, 30, 150, 50);
+        cyclingDept.setText("Cycling");
+        cyclingDept.setBounds(20, 30, 150, 50);
+        dpeptLabel.setBounds(20, 30, 150, 50);
+        JTextField title = new JTextField();
+        JTextField description = new JTextField();
+        JTextField price_in_pounds = new JTextField();
+        JTextField price_in_pence = new JTextField();
+        JTextField quantity = new JTextField();
+        JPanel newStockFormJPanel = new JPanel(new GridLayout(8, 2));
+        newStockFormJPanel.add(dpeptLabel);
+        departmentGroup.add(runningDept);
+        departmentGroup.add(swimmingDept);
+        departmentGroup.add(cyclingDept);
+        newStockFormJPanel.add(cyclingDept);
+        newStockFormJPanel.add(runningDept);
+        newStockFormJPanel.add(swimmingDept);
+        newStockFormJPanel.add(new JLabel("Title"));
+        newStockFormJPanel.add(title);
+        newStockFormJPanel.add(new JLabel("Description"));
+        newStockFormJPanel.add(description);
+        newStockFormJPanel.add(new JLabel("Price (£)"));
+        newStockFormJPanel.add(price_in_pounds);
+        newStockFormJPanel.add(new JLabel("Price (p)"));
+        newStockFormJPanel.add(price_in_pence);
+        newStockFormJPanel.add(new JLabel("Quantity"));
+        newStockFormJPanel.add(quantity);
+        
+
+        int selectedOption = JOptionPane.showConfirmDialog(null, newStockFormJPanel, "New Stock Item Form", JOptionPane.OK_CANCEL_OPTION );
+        if(selectedOption == JOptionPane.OK_OPTION && (cyclingDept.isSelected() || runningDept.isSelected() || swimmingDept.isSelected())) {
+           String _title = title.getText();
+           String _description = description.getText();
+           String _price_in_pounds = price_in_pounds.getText();
+           String _price_in_pence = price_in_pence.getText();
+           String _quantity = quantity.getText();
+           int department = 0;
+           if(runningDept.isSelected()) {
+               department = 1;
+           }
+           if(swimmingDept.isSelected()) {
+               department = 2;
+           }
+
+           if(cyclingDept.isSelected()) {
+               department = 3;
+           }
+        
+           ASCStockItem newStockItem  = new ASCStockItem(department, _title, _description, Integer.parseInt(_price_in_pounds), Integer.parseInt(_price_in_pence), Integer.parseInt(_quantity));
+           allStockItems.add(newStockItem);
+
+       }else {
+           JOptionPane.showMessageDialog(null, "No Department Selected", "Note", JOptionPane.WARNING_MESSAGE);
+       }
+        // return selectedOption;
+    }
 
     /**
      * @param args the command line arguments

@@ -45,12 +45,12 @@ public class ASCStockItem implements ASCStockInterface{
         this.productPriceInPounds = productPriceInPounds;
         this.productPriceInPence = productPriceInPence;
         this.qtyInStock = qtyInStock;
-        getProductDepartment(productTitle);
+        // getProductDepartment(productTitle);
     }
 
-    public ASCStockItem(String productTitle, String productDesc, int productPriceInPounds,
+    public ASCStockItem(int productDepartment, String productTitle, String productDesc, int productPriceInPounds,
             int productPriceInPence, int qtyInStock) {
-        this.productCode = getProductDepartment(productTitle) + 1 + (int) (Math.random() * 10000000);
+        this.productCode = getProductDepartment(productDepartment) + 1 + (int) (Math.random() * 10000000);
         this.productTitle = productTitle;
         this.productDesc = productDesc;
         this.productPriceInPounds = productPriceInPounds;
@@ -58,15 +58,15 @@ public class ASCStockItem implements ASCStockInterface{
         this.qtyInStock = qtyInStock;
     }
 
-    private static String getProductDepartment(String productTitle){
+    private static String getProductDepartment(int productDept){
         String productId = "";
-        if(productTitle.toUpperCase().contains("RUN")) {
+        if(productDept == 1) {
             productId = "RUN";
         }
-        if(productTitle.toUpperCase().contains("CYC")) {
+        if(productDept == 3) {
             productId = "CYC";
         }
-        if(productTitle.toUpperCase().contains("SWIM")) {
+        if(productDept == 2) {
             productId = "SWM";
         }
         return productId;
