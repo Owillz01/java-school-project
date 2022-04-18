@@ -29,6 +29,8 @@
                   <Component id="jScrollPane1" alignment="0" pref="587" max="32767" attributes="0"/>
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      <Component id="createNewStockItem" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Component id="addStock" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="sellStock" min="-2" max="-2" attributes="0"/>
@@ -47,6 +49,7 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="addStock" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="sellStock" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="createNewStockItem" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
           </Group>
@@ -89,6 +92,14 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="sellStockActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="createNewStockItem">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="new Stock"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="createNewStockItemActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

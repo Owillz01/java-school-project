@@ -17,8 +17,11 @@ import java.util.Date;
 import java.util.List;
 
 import javax.swing.JOptionPane;
+import uk.ac.tees.scedt.b1349506.ASCStockInterface;
 
 import uk.ac.tees.scedt.b1349506.ASCStockItem;
+import uk.ac.tees.scedt.b1349506.MSMStockItem;
+import uk.ac.tees.scedt.b1349506.MeganAdapter;
 
 
 /**
@@ -32,7 +35,17 @@ public class StockItemForm extends javax.swing.JFrame {
     File stockItemFile = new File("./assets/_AshersSportsCollective.csv");
     File stockItemSoldFile = new File("./assets/AshersSportsCollectiveSold.csv");
 
-    private List<ASCStockItem> allStockItem = ASCStockItem.loadASCStockItemCSV();
+    private static List<ASCStockItem> allASCStockItem = ASCStockItem.loadASCStockItemCSV();
+    private static List<MSMStockItem> allMeganStockItem = MSMStockItem.loadStock();
+    private static List<MeganAdapter> allMeganAdaptedStockItem = new ArrayList<>();
+
+//    adapteMsmStockItems(allMeganStockItem, allMeganAdaptedStockItem);
+
+    private static List<ASCStockInterface> allStockItems = new ArrayList<>();
+
+//    allStockItems.addAll (allMeganAdaptedStockItem);
+//
+//    allStockItems.addAll (allAscStockItem);
     
     
 
@@ -41,7 +54,8 @@ public class StockItemForm extends javax.swing.JFrame {
      */
     public StockItemForm() {
         initComponents();
-        stockItemTable.setModel(new StockItemModel(allStockItem));
+        adapteMsmStockItems();
+        stockItemTable.setModel(new StockItemModel(allStockItems));
         confirmCloseAction();
     }
     
@@ -53,7 +67,7 @@ public class StockItemForm extends javax.swing.JFrame {
                 final List<String> tempStockArray = new ArrayList<>();
                 int option = JOptionPane.showConfirmDialog(null, "Do you want to close this window?", "Confirmation", JOptionPane.YES_NO_OPTION);
                 if(option == JOptionPane.YES_OPTION) {
-                    for (ASCStockItem stock : allStockItem) {
+                    for (ASCStockInterface stock : allStockItems) {
                         sBuilder.append(stock.getProductCode());
                         sBuilder.append(",");
                         sBuilder.append(stock.getProductTitle());
@@ -72,6 +86,16 @@ public class StockItemForm extends javax.swing.JFrame {
                 }
             }
         });
+    }
+    
+    private static void adapteMsmStockItems() {
+        for (MSMStockItem stock : allMeganStockItem) {
+          MeganAdapter adaptedItem = new MeganAdapter(stock);
+            allMeganAdaptedStockItem.add(adaptedItem);
+        }
+        allStockItems.addAll(allMeganAdaptedStockItem);
+
+        allStockItems.addAll(allASCStockItem);
     }
     
     public static void writeToFile(PrintWriter _output, File _stockItemFile, String _stockItems) {
@@ -103,6 +127,7 @@ public class StockItemForm extends javax.swing.JFrame {
         stockItemTable = new javax.swing.JTable();
         addStock = new javax.swing.JButton();
         sellStock = new javax.swing.JButton();
+        createNewStockItem = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -133,6 +158,13 @@ public class StockItemForm extends javax.swing.JFrame {
             }
         });
 
+        createNewStockItem.setText("new Stock");
+        createNewStockItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                createNewStockItemActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -143,6 +175,8 @@ public class StockItemForm extends javax.swing.JFrame {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 587, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(createNewStockItem)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(addStock)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(sellStock)))
@@ -156,7 +190,8 @@ public class StockItemForm extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(addStock)
-                    .addComponent(sellStock))
+                    .addComponent(sellStock)
+                    .addComponent(createNewStockItem))
                 .addGap(9, 9, 9))
         );
 
@@ -167,7 +202,7 @@ public class StockItemForm extends javax.swing.JFrame {
         int isSelectedRow = stockItemTable.getSelectedRow();     // TODO add your handling code here:
         
         if(isSelectedRow != -1) {
-            ASCStockItem selectedStock = allStockItem.get(isSelectedRow);
+            ASCStockInterface selectedStock = allStockItems.get(isSelectedRow);
             selectedStock.addStockQuantity();
             stockItemTable.updateUI();
         }else {
@@ -179,7 +214,7 @@ public class StockItemForm extends javax.swing.JFrame {
         String newline = System.lineSeparator();
         int isSelectedRow = stockItemTable.getSelectedRow();     // TODO add your handling code here:
         if(isSelectedRow != -1) {
-            ASCStockItem selectedStock = allStockItem.get(isSelectedRow);
+            ASCStockInterface selectedStock = allStockItems.get(isSelectedRow);
             int inStock = selectedStock.getQtyInStock();
             
             if(inStock == 0) {
@@ -203,6 +238,10 @@ public class StockItemForm extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "No Stock Selected", "Note", JOptionPane.WARNING_MESSAGE);
         }        // TODO add your handling code here:
     }//GEN-LAST:event_sellStockActionPerformed
+
+    private void createNewStockItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createNewStockItemActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_createNewStockItemActionPerformed
 
     /**
      * @param args the command line arguments
@@ -241,6 +280,7 @@ public class StockItemForm extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addStock;
+    private javax.swing.JButton createNewStockItem;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton sellStock;
     private javax.swing.JTable stockItemTable;

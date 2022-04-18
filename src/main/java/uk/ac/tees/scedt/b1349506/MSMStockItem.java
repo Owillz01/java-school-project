@@ -5,10 +5,16 @@
  */
 package uk.ac.tees.scedt.b1349506;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+
 // <-- TODO: Change the package name
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Pattern;
 
 /** Represents a Mengda's Sportymart stock item.
@@ -76,7 +82,7 @@ public class MSMStockItem {
      * @since 1.0
      */
     public String getDescription() {
-        return nameAndDescription.substring(60, nameAndDescription.length());
+        return nameAndDescription.substring(60, nameAndDescription.length()).replaceAll("\u00a0", "").stripLeading();
     }
 
     /**
@@ -110,6 +116,14 @@ public class MSMStockItem {
         }
     }
     
+    public void addStock() {
+        quantityInStock++;
+    }
+    
+    public void sellStock() {
+        quantityInStock--;
+    }
+    
     @Override
     public String toString() {
         return String.format("%d-%s - %s - %s - UNIT PRICE: £%s - QTY: %d",
@@ -128,7 +142,29 @@ public class MSMStockItem {
      */
     public static List<MSMStockItem> loadStock() {
         final List<MSMStockItem> loadedStock = new ArrayList<>();
-        
+
+        try (final Scanner fileScanner = new Scanner(new FileReader("./assets/MengdasSportyMart.csv"))) {
+            // loadedStock = new ArrayList<>();
+
+            while (fileScanner.hasNextLine()) {
+                final String[] columns = fileScanner.nextLine().split(",");
+                MSMStockItem stockItem;
+                String idColumn;
+                if(columns[0].length() > 1) {
+                    idColumn = columns[0].substring(3);
+                }else{
+                    idColumn = columns[0];
+                }
+                // System.out.println(idColumn + "<<<<<");
+                stockItem = new MSMStockItem( Integer.parseInt(idColumn), columns[1], columns[2].replaceAll("Â", " "), Integer.parseInt(columns[3]), Integer.parseInt(columns[4]));
+
+                loadedStock.add(stockItem);
+            }
+
+        }catch (FileNotFoundException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
         //------------------------------------------------------------------
         // TODO: Add code to load CSV file.
         //------------------------------------------------------------------

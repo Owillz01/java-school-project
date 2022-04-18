@@ -6,6 +6,7 @@ package uk.ac.tees.scedt.b1349506.gui;
 
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
+import uk.ac.tees.scedt.b1349506.ASCStockInterface;
 import uk.ac.tees.scedt.b1349506.ASCStockItem;
 
 /**
@@ -16,9 +17,9 @@ public class StockItemModel extends AbstractTableModel{
     
     
     
-    private List<ASCStockItem> allStockItem;
+    private List<ASCStockInterface> allStockItem;
     protected static String[] COLUMN_NAMES = {"ID", "Tile", "Description", "Unit Price (pounds)", "unit Price (pence)", "Quantity"};
-    public StockItemModel(List<ASCStockItem> allStockItem) {
+    public StockItemModel(List<ASCStockInterface> allStockItem) {
         
         this.allStockItem = allStockItem;
     }
@@ -40,7 +41,7 @@ public class StockItemModel extends AbstractTableModel{
 
     @Override
     public Object getValueAt(int rowIndex, int colIndex) {
-        ASCStockItem StockItem = allStockItem.get(rowIndex);
+        ASCStockInterface StockItem = allStockItem.get(rowIndex);
         switch(colIndex) {
             case 0 :return StockItem.getProductCode();
             case 1 :return StockItem.getProductTitle();

@@ -18,7 +18,7 @@ import java.util.logging.Logger;
  */
 
 
-public class ASCStockItem {
+public class ASCStockItem implements ASCStockInterface{
     private String productCode;
     private String productTitle;
     private String productDesc;
@@ -72,84 +72,74 @@ public class ASCStockItem {
         return productId;
     }
 
+    @Override
     public String getProductCode() {
         return productCode;
     }
 
 
-
+    @Override
     public String getProductTitle() {
         return productTitle.substring(0, Math.min(productTitle.length(), 120)).stripTrailing().stripLeading();
     }
 
+    @Override
     public String getProductDesc() {
         return productDesc.substring(0, Math.min(productTitle.length(), 500)).stripTrailing().stripLeading();
     }
 
+    @Override
     public double getProductPriceInPounds() {
         return productPriceInPounds;
     }
 
+    @Override
     public int getProductPriceInPence() {
         return productPriceInPence;
     }
 
+    @Override
     public double getUnitPrice() {
         double pence = (double) productPriceInPence;
         double unitPrice = (pence /100) + productPriceInPounds;
         return unitPrice;
     }
 
+    @Override
     public int getQtyInStock() {
         return qtyInStock;
     }
 
+     @Override
     public void addStockQuantity() {
         qtyInStock++;
     }
 
+     @Override
     public void removeStockQuantity() {
         qtyInStock--;
     }
 
     public static List<ASCStockItem> loadASCStockItemCSV() {
-        List<ASCStockItem> allStockItem = null ;
+        List<ASCStockItem> allAscStockItem = null ;
 
         try (final Scanner fileScanner = new Scanner(new FileReader("./assets/AshersSportsCollective.csv"))) {
-            allStockItem = new ArrayList<>();
+            allAscStockItem = new ArrayList<>();
 
             while (fileScanner.hasNextLine()) {
                 final String[] columns = fileScanner.nextLine().split(",");
                 ASCStockItem stockItem;
 
-                stockItem = new ASCStockItem(columns[0], columns[1], columns[2], Integer.parseInt(columns[3]), Integer.parseInt(columns[4]), Integer.parseInt(columns[5]));
+                stockItem = new ASCStockItem(columns[0].replaceAll("ï»¿", ""), columns[1].replaceAll("Â", " "), columns[2].replaceAll("Â", " "), Integer.parseInt(columns[3]), Integer.parseInt(columns[4]), Integer.parseInt(columns[5]));
 
-                allStockItem.add(stockItem);
+                allAscStockItem.add(stockItem);
             }
 
         }catch (FileNotFoundException ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        return allStockItem;
+        return allAscStockItem;
     }
-
-
-//      public String moduleResults() {
-//         // TODO - Build a string that is a summary of all the marks
-//         modulesMarks.forEach((key, value) -> {  
-//            String grade = markToLetterGrade(value);
-//            Module module = key;
-//            sBuilder.append("      ");
-//            sBuilder.append(module.getCode());
-//            sBuilder.append(" : ");
-//            sBuilder.append(grade);
-//            sBuilder.append("\t");
-// //            
-//          });
-        
-//         return sBuilder.toString();
-//     }
-
-    
+   
 }
