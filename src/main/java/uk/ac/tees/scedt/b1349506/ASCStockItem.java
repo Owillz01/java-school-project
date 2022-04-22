@@ -12,18 +12,43 @@ import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author godsw
+
+/** Represents an Ashers’ Sport Collective stock item.
+ * @author Omonkhodion Godswill - B1349506
+ * @version 1.0
+ * @since 1.0
  */
 
-
 public class ASCStockItem implements ASCStockInterface{
+
+    /**
+     *
+     */
     private String productCode;
+
+    /**
+     *
+     */
     private String productTitle;
+
+    /**
+     *
+     */
     private String productDesc;
-    private double productPriceInPounds;
+
+    /**
+     *
+     */
+    private int productPriceInPounds;
+
+    /**
+     *
+     */
     private int productPriceInPence;
+
+    /**
+     *
+     */
     private int qtyInStock;
     
 
@@ -35,6 +60,16 @@ public class ASCStockItem implements ASCStockInterface{
     //      this.productPriceInPence = _productPriceInPence;
     //      this.qtyInStock =  _qtyInStock;
     // }
+
+    /**
+     *
+     * @param productCode
+     * @param productTitle
+     * @param productDesc
+     * @param productPriceInPounds
+     * @param productPriceInPence
+     * @param qtyInStock
+     */
     
 
     public ASCStockItem(String productCode, String productTitle, String productDesc, int productPriceInPounds,
@@ -48,6 +83,15 @@ public class ASCStockItem implements ASCStockInterface{
         // getProductDepartment(productTitle);
     }
 
+    /**
+     *
+     * @param productDepartment
+     * @param productTitle
+     * @param productDesc
+     * @param productPriceInPounds
+     * @param productPriceInPence
+     * @param qtyInStock
+     */
     public ASCStockItem(int productDepartment, String productTitle, String productDesc, int productPriceInPounds,
             int productPriceInPence, int qtyInStock) {
         this.productCode = getProductDepartment(productDepartment) + 1 + (int) (Math.random() * 10000000);
@@ -58,6 +102,11 @@ public class ASCStockItem implements ASCStockInterface{
         this.qtyInStock = qtyInStock;
     }
 
+    /**
+     *
+     * @param productDept
+     * @return
+     */
     private static String getProductDepartment(int productDept){
         String productId = "";
         if(productDept == 1) {
@@ -72,54 +121,99 @@ public class ASCStockItem implements ASCStockInterface{
         return productId;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public String getProductCode() {
         return productCode;
     }
 
-
+    /**
+     *
+     * @return
+     */
     @Override
     public String getProductTitle() {
-        return productTitle.substring(0, Math.min(productTitle.length(), 120)).stripTrailing().stripLeading();
+        return productTitle.substring(0, Math.min(productTitle.length(), 120)).stripTrailing();
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public String getProductDesc() {
-        return productDesc.substring(0, Math.min(productTitle.length(), 500)).stripTrailing().stripLeading();
+        return productDesc.substring(0, Math.min(productDesc.length(), 500)).stripTrailing().stripLeading();
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
-    public double getProductPriceInPounds() {
+    public int getProductPriceInPounds() {
         return productPriceInPounds;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public int getProductPriceInPence() {
         return productPriceInPence;
     }
 
+    /**
+     *
+     * @param newQuantity
+     */
+    @Override
+    public void setQuanity(int newQuantity) {
+        if(newQuantity >= 0) {
+            qtyInStock = newQuantity;
+        }
+    }
+
+    /**
+     *
+     * @return
+     */
     @Override
     public double getUnitPrice() {
         double pence = (double) productPriceInPence;
         double unitPrice = (pence /100) + productPriceInPounds;
+        // return String.format("%d.%02d", productPriceInPounds, pence);
         return unitPrice;
     }
 
+    @Override
+    public String getHumanFriendlyUnitPrice() {
+        
+        double pence = (double) productPriceInPence;
+        // double unitPrice = (pence /100) + productPriceInPounds;
+        return String.format("%d.%02d", productPriceInPounds, productPriceInPence);
+    }
+
+    /**
+     *
+     * @return
+     */
     @Override
     public int getQtyInStock() {
         return qtyInStock;
     }
 
-     @Override
-    public void addStockQuantity() {
-        qtyInStock++;
-    }
+    /**
+     *
+     */
 
-     @Override
-    public void removeStockQuantity() {
-        qtyInStock--;
-    }
-
+    /**
+     *
+     * @return
+     */
     public static List<ASCStockItem> loadASCStockItemCSV() {
         List<ASCStockItem> allAscStockItem = null ;
 

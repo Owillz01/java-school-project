@@ -9,10 +9,12 @@ import javax.swing.table.AbstractTableModel;
 import uk.ac.tees.scedt.b1349506.ASCStockInterface;
 import uk.ac.tees.scedt.b1349506.ASCStockItem;
 
-/**
- *
- * @author godsw
+/** Represents a table model for displaying all stock items.
+ * @author Omonkhodion Godswill - B1349506
+ * @version 1.0
+ * @since 1.0
  */
+
 public class StockItemModel extends AbstractTableModel{
     
     
@@ -38,7 +40,17 @@ public class StockItemModel extends AbstractTableModel{
     public String getColumnName(int column) {
         return COLUMN_NAMES[column];
     }
-
+    // @Override
+    // public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
+    //     ASCStockInterface StockItem = allStockItem.get(rowIndex);
+    //     StockItem.setQuanity(aValue);
+    // }
+    
+    @Override
+    public boolean isCellEditable(int rowIndex, int columnIndex) {
+        return true;       
+    }
+    
     @Override
     public Object getValueAt(int rowIndex, int colIndex) {
         ASCStockInterface StockItem = allStockItem.get(rowIndex);

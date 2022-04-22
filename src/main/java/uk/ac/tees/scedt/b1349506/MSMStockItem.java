@@ -113,17 +113,16 @@ public class MSMStockItem {
     public void setQuanity(int newQuantity) {
         if(newQuantity >= 0) {
             quantityInStock = newQuantity;
+            if(quantityInStock <= 5) {
+                System.out.println(code + "quantity left: " + quantityInStock);
+            }
         }
     }
-    
-    public void addStock() {
-        quantityInStock++;
-    }
-    
-    public void sellStock() {
-        quantityInStock--;
-    }
-    
+        
+    /**
+     *
+     * @return
+     */
     @Override
     public String toString() {
         return String.format("%d-%s - %s - %s - UNIT PRICE: £%s - QTY: %d",

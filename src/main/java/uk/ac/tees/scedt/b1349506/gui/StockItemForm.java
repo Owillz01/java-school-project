@@ -23,6 +23,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+
 import uk.ac.tees.scedt.b1349506.ASCStockInterface;
 
 import uk.ac.tees.scedt.b1349506.ASCStockItem;
@@ -30,10 +33,12 @@ import uk.ac.tees.scedt.b1349506.MSMStockItem;
 import uk.ac.tees.scedt.b1349506.MeganAdapter;
 
 
-/**
- *
- * @author godsw
+/** Represents an Ashers’ Sport Collective stock item.
+ * @author Omonkhodion Godswill - B1349506
+ * @version 1.0
+ * @since 1.0
  */
+
 public class StockItemForm extends javax.swing.JFrame {
     PrintWriter output = null;
     StringBuilder sBuilder = new StringBuilder();
@@ -82,7 +87,7 @@ public class StockItemForm extends javax.swing.JFrame {
                         sBuilder.append(stock.getQtyInStock());
                         sBuilder.append(newline);
                     }
-                    writeToFile(output,stockItemFile, sBuilder.toString());
+                    writeToFile(output,stockItemFile, sBuilder.toString(), false);
                     System.out.println("I HAVE CLOSED OOOOO");
                 }
             }
@@ -99,9 +104,9 @@ public class StockItemForm extends javax.swing.JFrame {
         allStockItems.addAll(allASCStockItem);
     }
     
-    public static void writeToFile(PrintWriter _output, File _stockItemFile, String _stockItems) {
+    public static void writeToFile(PrintWriter _output, File _stockItemFile, String _stockItems, boolean isOverrideTrue) {
         try {
-            FileWriter fw = new FileWriter(_stockItemFile, true);
+            FileWriter fw = new FileWriter(_stockItemFile, isOverrideTrue);
             _output = new PrintWriter(fw);
             _output.print(_stockItems);
             _output.close();
@@ -129,6 +134,7 @@ public class StockItemForm extends javax.swing.JFrame {
         addStock = new javax.swing.JButton();
         sellStock = new javax.swing.JButton();
         createNewStockItem = new javax.swing.JButton();
+        deleteStockBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -145,7 +151,7 @@ public class StockItemForm extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(stockItemTable);
 
-        addStock.setText("Add Stock");
+        addStock.setText("Add Stock Quantity");
         addStock.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addStockActionPerformed(evt);
@@ -159,10 +165,17 @@ public class StockItemForm extends javax.swing.JFrame {
             }
         });
 
-        createNewStockItem.setText("new Stock");
+        createNewStockItem.setText("Add new Stock");
         createNewStockItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 createNewStockItemActionPerformed(evt);
+            }
+        });
+
+        deleteStockBtn.setText("Delete Stock");
+        deleteStockBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteStockBtnActionPerformed(evt);
             }
         });
 
@@ -176,6 +189,8 @@ public class StockItemForm extends javax.swing.JFrame {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 587, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(deleteStockBtn)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(createNewStockItem)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(addStock)
@@ -192,7 +207,8 @@ public class StockItemForm extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(addStock)
                     .addComponent(sellStock)
-                    .addComponent(createNewStockItem))
+                    .addComponent(createNewStockItem)
+                    .addComponent(deleteStockBtn))
                 .addGap(9, 9, 9))
         );
 
@@ -201,12 +217,25 @@ public class StockItemForm extends javax.swing.JFrame {
 
     private void addStockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addStockActionPerformed
         int isSelectedRow = stockItemTable.getSelectedRow();     // TODO add your handling code here:
-        
         if(isSelectedRow != -1) {
-            ASCStockInterface selectedStock = allStockItems.get(isSelectedRow);
-            selectedStock.addStockQuantity();
-            stockItemTable.updateUI();
-        }else {
+            JTextField stockValue = new JTextField();
+            JPanel buyStockFormJPanel = new JPanel(new GridLayout(2, 2));
+            buyStockFormJPanel.add(new JLabel("Enter quantity to Add"));
+            buyStockFormJPanel.add(stockValue);
+            int selectedOption = JOptionPane.showConfirmDialog(null, buyStockFormJPanel, "Buy/Add More Stock Item", JOptionPane.OK_CANCEL_OPTION );
+            if(selectedOption == JOptionPane.OK_OPTION && (stockValue.getText().length() > 0)) {
+                String _stockValue = stockValue.getText();
+                int inputedStockValue = Integer.parseInt(_stockValue);
+                ASCStockInterface selectedStock = allStockItems.get(isSelectedRow);
+                int inStock = selectedStock.getQtyInStock();
+                int newStockQuantity = inStock + inputedStockValue;
+                selectedStock.setQuanity(newStockQuantity);
+                stockItemTable.updateUI();
+            }else {
+                JOptionPane.showMessageDialog(null, "Kindly Enter a value", "Note", JOptionPane.WARNING_MESSAGE);
+            }
+        }
+        else {
             JOptionPane.showMessageDialog(null, "No Stock Selected", "Note", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_addStockActionPerformed
@@ -215,25 +244,31 @@ public class StockItemForm extends javax.swing.JFrame {
         String newline = System.lineSeparator();
         int isSelectedRow = stockItemTable.getSelectedRow();     // TODO add your handling code here:
         if(isSelectedRow != -1) {
-            ASCStockInterface selectedStock = allStockItems.get(isSelectedRow);
-            int inStock = selectedStock.getQtyInStock();
-            
-            if(inStock == 0) {
-                return;
-            }else{
+            JTextField stockValue = new JTextField();
+            JPanel sellStockFormJPanel = new JPanel(new GridLayout(2, 2));
+            sellStockFormJPanel.add(new JLabel("Enter quantity to sell"));
+            sellStockFormJPanel.add(stockValue);
+            int selectedOption = JOptionPane.showConfirmDialog(null, sellStockFormJPanel, "Sell Stock Item", JOptionPane.OK_CANCEL_OPTION );
+            if(selectedOption == JOptionPane.OK_OPTION && (stockValue.getText().length() > 0)) {
+                String _stockValue = stockValue.getText();
+                int inputedStockValue = Integer.parseInt(_stockValue);
+                ASCStockInterface selectedStock = allStockItems.get(isSelectedRow);
+                int inStock = selectedStock.getQtyInStock();
+                int newStockQuantity = inStock - inputedStockValue;
+                selectedStock.setQuanity(newStockQuantity);
                 SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");  
                 Date date = new Date();  
-                
-                selectedStock.removeStockQuantity();
                 stockItemTable.updateUI();
                 inStock = selectedStock.getQtyInStock();
-                String productCode = selectedStock.getProductCode();
                 if(inStock <= 5) {
-                JOptionPane.showMessageDialog(null, productCode+" quantity left: " + inStock, "Low Stock Alert", JOptionPane.WARNING_MESSAGE);
+                    String productCode = selectedStock.getProductCode();
+                    JOptionPane.showMessageDialog(null, productCode+" quantity left: " + inStock, "Low Stock Alert", JOptionPane.WARNING_MESSAGE);
                 }
                     
-                String stockItemSold = formatter.format(date) +","+ selectedStock.getProductCode() + "," + 1 +"," +selectedStock.getUnitPrice() + newline;
-                writeToFile(output,stockItemSoldFile, stockItemSold);
+                String stockItemSold = formatter.format(date) +","+ selectedStock.getProductCode() + "," + inputedStockValue +"," +selectedStock.getHumanFriendlyUnitPrice() + newline;
+                writeToFile(output,stockItemSoldFile, stockItemSold, true);
+            }else {
+                JOptionPane.showMessageDialog(null, "Kindly Enter a value", "Note", JOptionPane.WARNING_MESSAGE);
             }
         }else {
             JOptionPane.showMessageDialog(null, "No Stock Selected", "Note", JOptionPane.WARNING_MESSAGE);
@@ -245,6 +280,23 @@ public class StockItemForm extends javax.swing.JFrame {
         constructNewStockForm();
         stockItemTable.updateUI();
     }//GEN-LAST:event_createNewStockItemActionPerformed
+
+    private void deleteStockBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteStockBtnActionPerformed
+        int isSelectedRow = stockItemTable.getSelectedRow();     // TODO add your handling code here:
+        if(isSelectedRow != -1) {
+            int selectedOption = JOptionPane.showConfirmDialog(null, "Delete the selected item?", "confirm Delete", 0, 3);
+            if(selectedOption == JOptionPane.OK_OPTION) {
+                allStockItems.remove(isSelectedRow);
+                stockItemTable.updateUI();
+            }else {
+                JOptionPane.showMessageDialog(null, "Kindly Enter a value", "Note", JOptionPane.WARNING_MESSAGE);
+            }
+        }
+        else {
+            JOptionPane.showMessageDialog(null, "No Stock Selected", "Note", JOptionPane.WARNING_MESSAGE);
+        }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_deleteStockBtnActionPerformed
 
     private void constructNewStockForm() {
         JRadioButton runningDept = new JRadioButton();
@@ -350,6 +402,7 @@ public class StockItemForm extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addStock;
     private javax.swing.JButton createNewStockItem;
+    private javax.swing.JButton deleteStockBtn;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton sellStock;
     private javax.swing.JTable stockItemTable;

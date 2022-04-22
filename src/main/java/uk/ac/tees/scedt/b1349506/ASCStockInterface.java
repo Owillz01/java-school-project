@@ -6,21 +6,65 @@ package uk.ac.tees.scedt.b1349506;
 
 import java.util.List;
 
-/**
- *
- * @author godsw
+/** Represents an Ashers’ Sport Collective stock item Interface.
+ * @author Omonkhodion Godswill - B1349506
+ * @version 1.0
+ * @since 1.0
  */
+
 public interface ASCStockInterface {
        
+    /**
+     * Returns the product code of the selected Ashers’ stock item object
+     * @return a string representing a product code.
+     * @since 1.0
+     */
     public String getProductCode();
+
+    /**
+     *
+     * @return String
+     */
     public String getProductTitle();
+
+    /**
+     *
+     * @return String
+     */
     public String getProductDesc();
+
+    /**
+     *
+     * @return int
+     */
     public int getProductPriceInPence();
-    public double getProductPriceInPounds();
+
+    /**
+     *
+     * @return int
+     */
+    public int getProductPriceInPounds();
+
+    /**
+     *
+     * @return double
+     */
     public double getUnitPrice();
+
+    public String getHumanFriendlyUnitPrice();
+
+    /**
+     *
+     * @return int
+     */
     public int getQtyInStock();
-    public void addStockQuantity(); 
-    public void removeStockQuantity();
-    // public List<ASCStockItem> loadASCStockItemCSV();
+
+
+    /**
+     *
+     * @param value
+     */
+    public void setQuanity(int value);
+    
     
 }

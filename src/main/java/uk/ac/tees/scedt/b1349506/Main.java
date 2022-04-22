@@ -7,10 +7,12 @@ package uk.ac.tees.scedt.b1349506;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- *
- * @author godsw
+/** 
+ * @author Omonkhodion Godswill - B1349506
+ * @version 1.0
+ * @since 1.0
  */
+
 public class Main {
     
     public static void main(String[] args) {
