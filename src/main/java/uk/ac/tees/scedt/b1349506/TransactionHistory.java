@@ -18,14 +18,14 @@ import java.util.logging.Logger;
  * @since 1.0
  */
 
-public class StockItemsSalesInformation {
+public class TransactionHistory {
     
     private String dateAndTime;
     private String productCode;
     private int quantitySold;
-    private int unitPrice;
+    private double unitPrice;
     
-    public StockItemsSalesInformation(String dateAndTime, String productCode, int unitPrice, int quantitySold) {
+    public TransactionHistory(String dateAndTime, String productCode, int quantitySold, double unitPrice) {
         this.dateAndTime = dateAndTime;
         this.productCode = productCode;
         this.unitPrice = unitPrice;
@@ -45,21 +45,21 @@ public class StockItemsSalesInformation {
         return quantitySold;
     }
 
-    public int getUnitPrice() {
+    public double getUnitPrice() {
         return unitPrice;
     }
 
-    public static List<StockItemsSalesInformation> loadASCStockItemCSV() {
-        List<StockItemsSalesInformation> allStockItemsSold = null ;
+    public static List<TransactionHistory> loadModuleCSV() {
+        List<TransactionHistory> allStockItemsSold = null ;
 
         try (final Scanner fileScanner = new Scanner(new FileReader("./assets/AshersSportsCollectiveSold.csv"))) {
             allStockItemsSold = new ArrayList<>();
 
             while (fileScanner.hasNextLine()) {
                 final String[] columns = fileScanner.nextLine().split(",");
-                StockItemsSalesInformation stockItem;
+                TransactionHistory stockItem;
 
-                stockItem = new StockItemsSalesInformation(columns[0].replaceAll("ï»¿", ""), columns[1].replaceAll("Â", " "), Integer.parseInt(columns[2]), Integer.parseInt(columns[3]));
+                stockItem = new TransactionHistory(columns[0].replaceAll("ï»¿", ""), columns[1].replaceAll("Â", " "), Integer.parseInt(columns[2]), Double.parseDouble(columns[3]));
 
                 allStockItemsSold.add(stockItem);
             }
