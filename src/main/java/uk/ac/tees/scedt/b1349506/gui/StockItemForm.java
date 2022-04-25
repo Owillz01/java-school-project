@@ -31,6 +31,7 @@ import uk.ac.tees.scedt.b1349506.ASCStockInterface;
 import uk.ac.tees.scedt.b1349506.ASCStockItem;
 import uk.ac.tees.scedt.b1349506.MSMStockItem;
 import uk.ac.tees.scedt.b1349506.MeganAdapter;
+import uk.ac.tees.scedt.b1349506.Observer;
 import uk.ac.tees.scedt.b1349506.TransactionHistory;
 
 
@@ -40,7 +41,7 @@ import uk.ac.tees.scedt.b1349506.TransactionHistory;
  * @since 1.0
  */
 
-public class StockItemForm extends javax.swing.JFrame {
+public class StockItemForm extends javax.swing.JFrame implements Observer{
     PrintWriter output = null;
     StringBuilder sBuilder = new StringBuilder();
 
@@ -48,6 +49,9 @@ public class StockItemForm extends javax.swing.JFrame {
     File stockItemSoldFile = new File("./assets/AshersSportsCollectiveSold.csv");
     private static List<TransactionHistory> allTransactionHistory = TransactionHistory.loadModuleCSV();
     private static List<ASCStockItem> allASCStockItem = ASCStockItem.loadASCStockItemCSV();
+    
+   
+    
     private static List<MSMStockItem> allMeganStockItem = MSMStockItem.loadStock();
     private static List<MeganAdapter> allMeganAdaptedStockItem = new ArrayList<>();
 
@@ -61,6 +65,10 @@ public class StockItemForm extends javax.swing.JFrame {
      */
     public StockItemForm() {
         initComponents();
+        
+        for (ASCStockItem stocks : allASCStockItem) {
+         stocks.registerObserver(StockItemForm.this);
+        }
         adapteMsmStockItems();
         stockItemTable.setModel(new StockItemModel(allStockItems));
         transactionHistoryTable.setModel(new TransactionHistoryModel(allTransactionHistory));
@@ -468,4 +476,9 @@ public class StockItemForm extends javax.swing.JFrame {
     private javax.swing.JTable stockItemTable;
     private javax.swing.JTable transactionHistoryTable;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void update() {
+        System.out.println("Something is happening");
+    }
 }

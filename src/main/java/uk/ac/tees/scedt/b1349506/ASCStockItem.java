@@ -19,7 +19,9 @@ import java.util.logging.Logger;
  * @since 1.0
  */
 
-public class ASCStockItem implements ASCStockInterface{
+public class ASCStockItem implements ASCStockInterface, Observed{
+    
+    List<Observer> observer = new ArrayList<>();
 
     /**
      *
@@ -175,6 +177,8 @@ public class ASCStockItem implements ASCStockInterface{
         if(newQuantity >= 0) {
             qtyInStock = newQuantity;
         }
+        
+        updateObserver();
     }
 
     /**
@@ -234,6 +238,20 @@ public class ASCStockItem implements ASCStockInterface{
         }
 
         return allAscStockItem;
+    }
+
+    @Override
+    public void registerObserver(Observer o) {
+        observer.add(o);
+        }
+
+    @Override
+    public void updateObserver() {
+        for (Observer observers : observer) {
+            observers.update();
+        }
+    
+    
     }
    
 }
