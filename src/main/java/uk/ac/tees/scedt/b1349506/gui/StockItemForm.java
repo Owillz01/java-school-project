@@ -66,13 +66,18 @@ public class StockItemForm extends javax.swing.JFrame implements Observer{
     public StockItemForm() {
         initComponents();
         
-        for (ASCStockItem stocks : allASCStockItem) {
-         stocks.registerObserver(StockItemForm.this);
-        }
+        
         adapteMsmStockItems();
         stockItemTable.setModel(new StockItemModel(allStockItems));
         transactionHistoryTable.setModel(new TransactionHistoryModel(allTransactionHistory));
         confirmCloseAction();
+        fnRegisterObservers();
+    }
+    
+    private void fnRegisterObservers() {
+        for (ASCStockInterface stocks : allStockItems) {
+         stocks.registerObserver(StockItemForm.this);
+        }
     }
     
     private void confirmCloseAction() {
@@ -324,10 +329,10 @@ public class StockItemForm extends javax.swing.JFrame implements Observer{
                 Date date = new Date();  
                 stockItemTable.updateUI();
                 inStock = selectedStock.getQtyInStock();
-                if(inStock <= 5) {
-                    String productCode = selectedStock.getProductCode();
-                    JOptionPane.showMessageDialog(null, productCode+" quantity left: " + inStock, "Low Stock Alert", JOptionPane.WARNING_MESSAGE);
-                }
+//                if(inStock <= 5) {
+//                    String productCode = selectedStock.getProductCode();
+//                    JOptionPane.showMessageDialog(null, productCode+" quantity left: " + inStock, "Low Stock Alert", JOptionPane.WARNING_MESSAGE);
+//                }
                     
                 String stockItemSold = formatter.format(date) +","+ selectedStock.getProductCode() + "," + inputedStockValue +"," +selectedStock.getHumanFriendlyUnitPrice() + newline;
                 writeToFile(output,stockItemSoldFile, stockItemSold, true);
@@ -477,8 +482,9 @@ public class StockItemForm extends javax.swing.JFrame implements Observer{
     private javax.swing.JTable transactionHistoryTable;
     // End of variables declaration//GEN-END:variables
 
+
     @Override
-    public void update() {
-        System.out.println("Something is happening");
+    public void notifyObserver(ASCStockInterface stock) {
+        JOptionPane.showMessageDialog(null, stock.getProductCode()+" quantity left: " + stock.getQtyInStock(), "Low Stock Alert", JOptionPane.WARNING_MESSAGE);
     }
 }

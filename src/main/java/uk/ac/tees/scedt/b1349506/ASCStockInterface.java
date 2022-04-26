@@ -12,7 +12,7 @@ import java.util.List;
  * @since 1.0
  */
 
-public interface ASCStockInterface {
+public interface ASCStockInterface extends Subject{
        
     /**
      * Returns the product code of the selected Ashers’ stock item object

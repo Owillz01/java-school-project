@@ -4,6 +4,9 @@
  */
 package uk.ac.tees.scedt.b1349506;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /** Takes an object of Mengda's Sport Collective stock item
  * and adapts it to Ashers’ Sport Collective stock item format.
  * @author Omonkhodion Godswill - B1349506
@@ -14,7 +17,7 @@ package uk.ac.tees.scedt.b1349506;
 public class MeganAdapter implements ASCStockInterface{
     
     MSMStockItem mSMStockItem;
-
+    List<Observer> observer = new ArrayList<>();
     /**
      *
      * @param _mSMStockItem
@@ -71,6 +74,11 @@ public class MeganAdapter implements ASCStockInterface{
     @Override
     public void setQuanity(int newValue) {
          mSMStockItem.setQuanity(newValue);
+         
+         if(mSMStockItem.getQuantityInStock() <= 5) {
+             System.out.println("newValue " + newValue);
+             updateObserver();
+         }
         // int pence = unitePrice % 100;
     }
     
@@ -106,6 +114,21 @@ public class MeganAdapter implements ASCStockInterface{
     @Override
     public int getQtyInStock() {
         return mSMStockItem.getQuantityInStock();
+    }
+
+    @Override
+    public void registerObserver(Observer o) {
+        System.out.println("Meg register");
+                
+        observer.add(o);
+    }
+
+    @Override
+    public void updateObserver() {
+        for (Observer observers : observer) {
+            System.out.println(this);
+            observers.notifyObserver(this);
+        }
     }
     
 }

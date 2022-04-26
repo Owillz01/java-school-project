@@ -19,15 +19,15 @@ import java.util.logging.Logger;
  * @since 1.0
  */
 
-public class ASCStockItem implements ASCStockInterface, Subject{
+public class ASCStockItem implements ASCStockInterface{
     
     List<Observer> observer = new ArrayList<>();
 
-    private String productCode;
-    private String productTitle;
-    private String productDesc;
-    private int productPriceInPounds;
-    private int productPriceInPence;
+    private final String productCode;
+    private final String productTitle;
+    private final String productDesc;
+    private final int productPriceInPounds;
+    private final int productPriceInPence;
     private int qtyInStock;
 
     /**
@@ -137,9 +137,10 @@ public class ASCStockItem implements ASCStockInterface, Subject{
     public void setQuanity(int newQuantity) {
         if(newQuantity >= 0) {
             qtyInStock = newQuantity;
-        }
-        
-        updateObserver();
+            if(qtyInStock <= 5){
+                updateObserver();
+            }
+        }      
     }
 
     /** Returns the product unit price
@@ -196,24 +197,25 @@ public class ASCStockItem implements ASCStockInterface, Subject{
         return allAscStockItem;
     }
 
+    
     /**Used for registering an Observer type
      * @param o
      */
     @Override
     public void registerObserver(Observer o) {
+        System.out.println("Asha register");
         observer.add(o);
-        }
+    }
 
+    
     /**
      *Used for updating all observers
      */
     @Override
     public void updateObserver() {
         for (Observer observers : observer) {
-            observers.update();
-        }
-    
-    
+            observers.notifyObserver(this);
+        }    
     }
    
 }

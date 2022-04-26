@@ -10,5 +10,5 @@ package uk.ac.tees.scedt.b1349506;
  * @since 1.0
  */
 public interface Observer {
-    public void update();
+    public void notifyObserver(ASCStockInterface stock);
 }

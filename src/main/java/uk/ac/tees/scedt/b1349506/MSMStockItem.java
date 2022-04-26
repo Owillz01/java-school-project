@@ -113,9 +113,6 @@ public class MSMStockItem {
     public void setQuanity(int newQuantity) {
         if(newQuantity >= 0) {
             quantityInStock = newQuantity;
-            if(quantityInStock <= 5) {
-                System.out.println(code + "quantity left: " + quantityInStock);
-            }
         }
     }
         
