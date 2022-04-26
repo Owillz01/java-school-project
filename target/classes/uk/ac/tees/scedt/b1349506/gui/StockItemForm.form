@@ -66,7 +66,7 @@
                   <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="1" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jScrollPane1" pref="599" max="32767" attributes="0"/>
+                          <Component id="jScrollPane1" pref="615" max="32767" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -132,7 +132,7 @@
             </Component>
             <Component class="javax.swing.JButton" name="addStock">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Add Stock Quantity"/>
+                <Property name="text" type="java.lang.String" value="Update Stock Quantity"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="addStockActionPerformed"/>
@@ -162,7 +162,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jScrollPane2" pref="587" max="32767" attributes="0"/>
+                      <Component id="jScrollPane2" pref="603" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
