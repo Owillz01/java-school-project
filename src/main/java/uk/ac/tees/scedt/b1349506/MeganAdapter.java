@@ -5,17 +5,14 @@
 package uk.ac.tees.scedt.b1349506;
 
 /** Takes an object of Mengda's Sport Collective stock item
- * and adapts it to Ashers’ Sport Collective stock item.
+ * and adapts it to Ashers’ Sport Collective stock item format.
  * @author Omonkhodion Godswill - B1349506
  * @version 1.0
  * @since 1.0
  */
 
 public class MeganAdapter implements ASCStockInterface{
-
-    /**
-     *
-     */
+    
     MSMStockItem mSMStockItem;
 
     /**
@@ -26,9 +23,8 @@ public class MeganAdapter implements ASCStockInterface{
         this.mSMStockItem = _mSMStockItem;
     }
 
-    /**
-     *
-     * @return
+    /** Returns an adapted product code
+     * @return a string value as product code
      */
     @Override
     public String getProductCode() {
@@ -39,32 +35,28 @@ public class MeganAdapter implements ASCStockInterface{
             case 1:_dept = "RUN";
             case 2: _dept = "SWM";
             case 3:_dept = "CYC";
-        }
-        
+        }     
         return _dept+"-"+_code+"-MSM";
     }
 
-    /**
-     *
-     * @return
+    /** Returns an adapted product title
+     * @return String a product name
      */
     @Override
     public String getProductTitle() {
         return mSMStockItem.getName();
     }
 
-    /**
-     *
-     * @return
+    /** Returns an adapted product description
+     * @return String value as product description
      */
     @Override
     public String getProductDesc() {
         return mSMStockItem.getDescription();
     }
 
-    /**
-     *
-     * @return
+    /** Returns an adapted product pence price
+     * @return an int a pence price
      */
     @Override
     public int getProductPriceInPence() {
@@ -73,8 +65,7 @@ public class MeganAdapter implements ASCStockInterface{
         return pence;
     }
 
-    /**
-     *
+    /**Used for setting new value for stock 
      * @param newValue
      */
     @Override
@@ -83,9 +74,8 @@ public class MeganAdapter implements ASCStockInterface{
         // int pence = unitePrice % 100;
     }
     
-    /**
-     *
-     * @return
+    /** Returns an adapted product pounds price
+     * @return an int a pound price value
      */
     @Override
     public int getProductPriceInPounds() {
@@ -94,31 +84,28 @@ public class MeganAdapter implements ASCStockInterface{
         return pounds;
     }
 
-    /**
-     *
-     * @return
+    /**Returns an adapted product unit price
+     * @return a double a unit price
      */
     @Override
     public double getUnitPrice() {
         return mSMStockItem.getUnitPrice();
     }
 
+    /**Returns an adapted product human readable unit price
+     * @return a formatted String as product price
+     */
     @Override
     public String getHumanFriendlyUnitPrice() {
         return mSMStockItem.getHumanFriendlyUnitPrice();
     }
 
-    /**
-     *
-     * @return
+    /** Returns an adapted product stock quantity
+     * @return an int a quantity in stock
      */
     @Override
     public int getQtyInStock() {
         return mSMStockItem.getQuantityInStock();
     }
-
-    /**
-     *
-     */
     
 }

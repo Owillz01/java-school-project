@@ -39,24 +39,12 @@ public interface ASCStockInterface {
      */
     public int getProductPriceInPence();
 
-    /**
-     *
-     * @return int
-     */
     public int getProductPriceInPounds();
 
-    /**
-     *
-     * @return double
-     */
     public double getUnitPrice();
 
     public String getHumanFriendlyUnitPrice();
 
-    /**
-     *
-     * @return int
-     */
     public int getQtyInStock();
 
 

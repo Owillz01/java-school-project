@@ -32,10 +32,6 @@ public class Main {
             System.out.println(stock.getProductCode() + " "+ " " + stock.getProductTitle() + stock.getProductDesc() + " " + stock.getProductPriceInPounds() + " " + stock.getProductPriceInPence() + " " + stock.getQtyInStock() );
         }
         
-
-//        for (MSMStockItem stock : allMeganStockItem) {
-//            System.out.println(stock.getCode() + " "+ " " + stock.getName() + " "+ " "+stock.getDescription() + " "+ " " +stock.getUnitPrice() + " "+ " "+ stock.getQuantityInStock() );
-//        }
     }
 
     private static void adapteMsmStockItems(List<MSMStockItem> _allMeganStockItem, List<MeganAdapter> allMeganAdaptedStockItem) {

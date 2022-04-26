@@ -20,11 +20,18 @@ import java.util.logging.Logger;
 
 public class TransactionHistory {
     
-    private String dateAndTime;
-    private String productCode;
-    private int quantitySold;
-    private double unitPrice;
+    private final String dateAndTime;
+    private final String productCode;
+    private final int quantitySold;
+    private final double unitPrice;
     
+    /**
+     *
+     * @param dateAndTime
+     * @param productCode
+     * @param quantitySold
+     * @param unitPrice
+     */
     public TransactionHistory(String dateAndTime, String productCode, int quantitySold, double unitPrice) {
         this.dateAndTime = dateAndTime;
         this.productCode = productCode;
@@ -32,23 +39,39 @@ public class TransactionHistory {
         this.quantitySold = quantitySold;
     }
 
+    /**Returns the date and time of a transaction
+     * @return String as date and time value
+     */
     public String getDateAndTime() {
         return dateAndTime;
     }
 
+    /**Returns the product code of a transaction
+     * @return String as product code value
+     */
     public String getProductCode() {
         return productCode;
     }
 
-
+    /**
+     * Returns the product quantity sold in a selected transaction
+     * @return int as product quantity value
+     */
     public int getQuantitySold() {
         return quantitySold;
     }
-
+    
+    /**
+     * Returns the unit price of a transaction
+     * @return int as unit price value
+     */
     public double getUnitPrice() {
         return unitPrice;
     }
 
+    /**Returns a collection of transaction history read from a CSV file
+     * @return an ArrayList of a transaction
+     */
     public static List<TransactionHistory> loadModuleCSV() {
         List<TransactionHistory> allStockItemsSold = null ;
 

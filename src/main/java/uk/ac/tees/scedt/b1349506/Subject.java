@@ -4,11 +4,12 @@
  */
 package uk.ac.tees.scedt.b1349506;
 
-/**
- *
- * @author godsw
+/** Represent Subject interface for Sport Collective stock items
+ ** @author Omonkhodion Godswill - B1349506
+ * @version 1.0
+ * @since 1.0
  */
-interface Observed {
+interface Subject {
     public void registerObserver(Observer o);
     public void updateObserver();
 }

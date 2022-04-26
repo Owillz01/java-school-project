@@ -13,55 +13,22 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
-/** Represents an Ashers’ Sport Collective stock item.
+/** Represents Ashers’ Sport Collective stock item class.
  * @author Omonkhodion Godswill - B1349506
  * @version 1.0
  * @since 1.0
  */
 
-public class ASCStockItem implements ASCStockInterface, Observed{
+public class ASCStockItem implements ASCStockInterface, Subject{
     
     List<Observer> observer = new ArrayList<>();
 
-    /**
-     *
-     */
     private String productCode;
-
-    /**
-     *
-     */
     private String productTitle;
-
-    /**
-     *
-     */
     private String productDesc;
-
-    /**
-     *
-     */
     private int productPriceInPounds;
-
-    /**
-     *
-     */
     private int productPriceInPence;
-
-    /**
-     *
-     */
     private int qtyInStock;
-    
-
-    // public ASCStockItem (String _productCode, String _productTitle, String _productDesc, int _productPriceInPounds, int _productPriceInPence, int _qtyInStock) {
-    //     this.productCode = _productCode;
-    //     this.productTitle = _productTitle;
-    //     this.productDesc = _productDesc;
-    //      this.productPriceInPounds = _productPriceInPounds;
-    //      this.productPriceInPence = _productPriceInPence;
-    //      this.qtyInStock =  _qtyInStock;
-    // }
 
     /**
      *
@@ -74,15 +41,14 @@ public class ASCStockItem implements ASCStockInterface, Observed{
      */
     
 
-    public ASCStockItem(String productCode, String productTitle, String productDesc, int productPriceInPounds,
-            int productPriceInPence, int qtyInStock) {
+    public ASCStockItem(String productCode, String productTitle, String productDesc, int productPriceInPounds, int productPriceInPence, int qtyInStock) 
+    {
         this.productCode = productCode;
         this.productTitle = productTitle;
         this.productDesc = productDesc;
         this.productPriceInPounds = productPriceInPounds;
         this.productPriceInPence = productPriceInPence;
         this.qtyInStock = qtyInStock;
-        // getProductDepartment(productTitle);
     }
 
     /**
@@ -107,7 +73,7 @@ public class ASCStockItem implements ASCStockInterface, Observed{
     /**
      *
      * @param productDept
-     * @return
+     * @return a String representing a product department
      */
     private static String getProductDepartment(int productDept){
         String productId = "";
@@ -123,53 +89,48 @@ public class ASCStockItem implements ASCStockInterface, Observed{
         return productId;
     }
 
-    /**
-     *
-     * @return
+    /** Returns a selected product code
+     * @return String as product code
      */
     @Override
     public String getProductCode() {
         return productCode;
     }
 
-    /**
-     *
-     * @return
+    /**Returns a selected product title
+     * @return String as product title
      */
     @Override
     public String getProductTitle() {
         return productTitle.substring(0, Math.min(productTitle.length(), 120)).stripTrailing();
     }
 
-    /**
-     *
-     * @return
+    /** Returns a selected product description
+     * @return String as product description
      */
     @Override
     public String getProductDesc() {
         return productDesc.substring(0, Math.min(productDesc.length(), 500)).stripTrailing().stripLeading();
     }
 
-    /**
+    /** Returns the pound price of a product
      *
-     * @return
+     * @return int as pounds value
      */
     @Override
     public int getProductPriceInPounds() {
         return productPriceInPounds;
     }
 
-    /**
-     *
-     * @return
+    /**Returns the pence price of a product
+     * @return int as pence value
      */
     @Override
     public int getProductPriceInPence() {
         return productPriceInPence;
     }
 
-    /**
-     *
+    /**Used for setting a new quantity value
      * @param newQuantity
      */
     @Override
@@ -181,9 +142,8 @@ public class ASCStockItem implements ASCStockInterface, Observed{
         updateObserver();
     }
 
-    /**
-     *
-     * @return
+    /** Returns the product unit price
+     * @return double as unit price value
      */
     @Override
     public double getUnitPrice() {
@@ -193,30 +153,26 @@ public class ASCStockItem implements ASCStockInterface, Observed{
         return unitPrice;
     }
 
+    /** Returns the product unit price
+     * @return a formatted String of product unit price
+     */
     @Override
-    public String getHumanFriendlyUnitPrice() {
-        
+    public String getHumanFriendlyUnitPrice() {        
         double pence = (double) productPriceInPence;
         // double unitPrice = (pence /100) + productPriceInPounds;
         return String.format("%d.%02d", productPriceInPounds, productPriceInPence);
     }
 
-    /**
-     *
-     * @return
+    /** Return the current stock quantity
+     * @return an int value as quantity stock
      */
     @Override
     public int getQtyInStock() {
         return qtyInStock;
     }
 
-    /**
-     *
-     */
-
-    /**
-     *
-     * @return
+    /** Return a collection of stock items read from CSV file
+     * @return n ArrayList of stock item
      */
     public static List<ASCStockItem> loadASCStockItemCSV() {
         List<ASCStockItem> allAscStockItem = null ;
@@ -240,11 +196,17 @@ public class ASCStockItem implements ASCStockInterface, Observed{
         return allAscStockItem;
     }
 
+    /**Used for registering an Observer type
+     * @param o
+     */
     @Override
     public void registerObserver(Observer o) {
         observer.add(o);
         }
 
+    /**
+     *Used for updating all observers
+     */
     @Override
     public void updateObserver() {
         for (Observer observers : observer) {
