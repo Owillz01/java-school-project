@@ -1,0 +1,63 @@
+@options
+@packages
+@argfile
+-encoding
+'UTF-8'
+-protected
+-source
+'11'
+-sourcepath
+'C:/Users/godsw/Desktop/tu/courses/OOP/ica element 2/UK_AC_TEES_SCEDT_B1349506/src/main/java'
+-author
+-bottom
+'Copyright &#169; 2022. All rights reserved.'
+-charset
+'UTF-8'
+-d
+'C:/Users/godsw/Desktop/tu/courses/OOP/ica element 2/UK_AC_TEES_SCEDT_B1349506/target/site/apidocs'
+-docencoding
+'UTF-8'
+-doctitle
+'UK_AC_TEES_SCEDT_B1349506 1.0-SNAPSHOT API'
+-linkoffline
+'https://docs.oracle.com/en/java/javase/11/docs/api' 'C:/Users/godsw/Desktop/tu/courses/OOP/ica element 2/UK_AC_TEES_SCEDT_B1349506/target/javadoc-bundle-options'
+-use
+-version
+-windowtitle
+'UK_AC_TEES_SCEDT_B1349506 1.0-SNAPSHOT API'
+uk.ac.tees.scedt.b1349506
+uk.ac.tees.scedt.b1349506.gui
+'C:/Users/godsw/Desktop/tu/courses/OOP/ica element 2/UK_AC_TEES_SCEDT_B1349506/src/main/java/uk/ac/tees/scedt/b1349506/ASCStockInterface.java'
+'C:/Users/godsw/Desktop/tu/courses/OOP/ica element 2/UK_AC_TEES_SCEDT_B1349506/src/main/java/uk/ac/tees/scedt/b1349506/ASCStockItem.java'
+'C:/Users/godsw/Desktop/tu/courses/OOP/ica element 2/UK_AC_TEES_SCEDT_B1349506/src/main/java/uk/ac/tees/scedt/b1349506/gui/StockItemForm.java'
+'C:/Users/godsw/Desktop/tu/courses/OOP/ica element 2/UK_AC_TEES_SCEDT_B1349506/src/main/java/uk/ac/tees/scedt/b1349506/gui/StockItemModel.java'
+'C:/Users/godsw/Desktop/tu/courses/OOP/ica element 2/UK_AC_TEES_SCEDT_B1349506/src/main/java/uk/ac/tees/scedt/b1349506/gui/TransactionHistoryModel.java'
+'C:/Users/godsw/Desktop/tu/courses/OOP/ica element 2/UK_AC_TEES_SCEDT_B1349506/src/main/java/uk/ac/tees/scedt/b1349506/Main.java'
+'C:/Users/godsw/Desktop/tu/courses/OOP/ica element 2/UK_AC_TEES_SCEDT_B1349506/src/main/java/uk/ac/tees/scedt/b1349506/MeganAdapter.java'
+'C:/Users/godsw/Desktop/tu/courses/OOP/ica element 2/UK_AC_TEES_SCEDT_B1349506/src/main/java/uk/ac/tees/scedt/b1349506/MSMStockItem.java'
+'C:/Users/godsw/Desktop/tu/courses/OOP/ica element 2/UK_AC_TEES_SCEDT_B1349506/src/main/java/uk/ac/tees/scedt/b1349506/Observer.java'
+'C:/Users/godsw/Desktop/tu/courses/OOP/ica element 2/UK_AC_TEES_SCEDT_B1349506/src/main/java/uk/ac/tees/scedt/b1349506/Sqlite.java'
+'C:/Users/godsw/Desktop/tu/courses/OOP/ica element 2/UK_AC_TEES_SCEDT_B1349506/src/main/java/uk/ac/tees/scedt/b1349506/Subject.java'
+'C:/Users/godsw/Desktop/tu/courses/OOP/ica element 2/UK_AC_TEES_SCEDT_B1349506/src/main/java/uk/ac/tees/scedt/b1349506/TransactionHistory.java'
+C:\Users\godsw\Desktop\tu\courses\OOP\ica element 2\UK_AC_TEES_SCEDT_B1349506\src\main\java = 1649201905753
+C:\Users\godsw\Desktop\tu\courses\OOP\ica element 2\UK_AC_TEES_SCEDT_B1349506\target\site\apidocs\allclasses-index.html = 1651319387428
+C:\Users\godsw\Desktop\tu\courses\OOP\ica element 2\UK_AC_TEES_SCEDT_B1349506\target\site\apidocs\allclasses.html = 1651319387452
+C:\Users\godsw\Desktop\tu\courses\OOP\ica element 2\UK_AC_TEES_SCEDT_B1349506\target\site\apidocs\allpackages-index.html = 1651319387434
+C:\Users\godsw\Desktop\tu\courses\OOP\ica element 2\UK_AC_TEES_SCEDT_B1349506\target\site\apidocs\constant-values.html = 1651319387027
+C:\Users\godsw\Desktop\tu\courses\OOP\ica element 2\UK_AC_TEES_SCEDT_B1349506\target\site\apidocs\deprecated-list.html = 1651319387446
+C:\Users\godsw\Desktop\tu\courses\OOP\ica element 2\UK_AC_TEES_SCEDT_B1349506\target\site\apidocs\element-list = 1651319386930
+C:\Users\godsw\Desktop\tu\courses\OOP\ica element 2\UK_AC_TEES_SCEDT_B1349506\target\site\apidocs\help-doc.html = 1651319387483
+C:\Users\godsw\Desktop\tu\courses\OOP\ica element 2\UK_AC_TEES_SCEDT_B1349506\target\site\apidocs\index-all.html = 1651319387409
+C:\Users\godsw\Desktop\tu\courses\OOP\ica element 2\UK_AC_TEES_SCEDT_B1349506\target\site\apidocs\index.html = 1651319387464
+C:\Users\godsw\Desktop\tu\courses\OOP\ica element 2\UK_AC_TEES_SCEDT_B1349506\target\site\apidocs\member-search-index.js = 1651319387400
+C:\Users\godsw\Desktop\tu\courses\OOP\ica element 2\UK_AC_TEES_SCEDT_B1349506\target\site\apidocs\member-search-index.zip = 1651319387403
+C:\Users\godsw\Desktop\tu\courses\OOP\ica element 2\UK_AC_TEES_SCEDT_B1349506\target\site\apidocs\overview-summary.html = 1651319387474
+C:\Users\godsw\Desktop\tu\courses\OOP\ica element 2\UK_AC_TEES_SCEDT_B1349506\target\site\apidocs\overview-tree.html = 1651319387259
+C:\Users\godsw\Desktop\tu\courses\OOP\ica element 2\UK_AC_TEES_SCEDT_B1349506\target\site\apidocs\package-search-index.js = 1651319387345
+C:\Users\godsw\Desktop\tu\courses\OOP\ica element 2\UK_AC_TEES_SCEDT_B1349506\target\site\apidocs\package-search-index.zip = 1651319387387
+C:\Users\godsw\Desktop\tu\courses\OOP\ica element 2\UK_AC_TEES_SCEDT_B1349506\target\site\apidocs\script.js = 1651319387496
+C:\Users\godsw\Desktop\tu\courses\OOP\ica element 2\UK_AC_TEES_SCEDT_B1349506\target\site\apidocs\search.js = 1651319387503
+C:\Users\godsw\Desktop\tu\courses\OOP\ica element 2\UK_AC_TEES_SCEDT_B1349506\target\site\apidocs\serialized-form.html = 1651319387051
+C:\Users\godsw\Desktop\tu\courses\OOP\ica element 2\UK_AC_TEES_SCEDT_B1349506\target\site\apidocs\stylesheet.css = 1651319387492
+C:\Users\godsw\Desktop\tu\courses\OOP\ica element 2\UK_AC_TEES_SCEDT_B1349506\target\site\apidocs\type-search-index.js = 1651319387392
+C:\Users\godsw\Desktop\tu\courses\OOP\ica element 2\UK_AC_TEES_SCEDT_B1349506\target\site\apidocs\type-search-index.zip = 1651319387397
