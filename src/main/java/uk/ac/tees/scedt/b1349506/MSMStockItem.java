@@ -82,7 +82,7 @@ public class MSMStockItem {
      * @since 1.0
      */
     public String getDescription() {
-        return nameAndDescription.substring(60, nameAndDescription.length()).replaceAll("\u00a0", "").stripLeading();
+        return nameAndDescription.substring(60, nameAndDescription.length());
     }
 
     /**
@@ -151,7 +151,7 @@ public class MSMStockItem {
                 }else{
                     idColumn = columns[0];
                 }
-                // System.out.println(idColumn + "<<<<<");
+                 System.out.println(columns[2].replaceAll("Â", " ") + "<<<<<");
                 stockItem = new MSMStockItem( Integer.parseInt(idColumn), columns[1], columns[2].replaceAll("Â", " "), Integer.parseInt(columns[3]), Integer.parseInt(columns[4]));
 
                 loadedStock.add(stockItem);

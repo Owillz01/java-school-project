@@ -45,12 +45,7 @@ public class StockItemModel extends AbstractTableModel{
     //     ASCStockInterface StockItem = allStockItem.get(rowIndex);
     //     StockItem.setQuanity(aValue);
     // }
-    
-    @Override
-    public boolean isCellEditable(int rowIndex, int columnIndex) {
-        return true;       
-    }
-    
+        
     @Override
     public Object getValueAt(int rowIndex, int colIndex) {
         ASCStockInterface StockItem = allStockItem.get(rowIndex);

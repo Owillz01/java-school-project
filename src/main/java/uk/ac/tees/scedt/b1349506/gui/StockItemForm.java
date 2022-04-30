@@ -23,8 +23,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 
 import uk.ac.tees.scedt.b1349506.ASCStockInterface;
 
@@ -49,25 +47,16 @@ public class StockItemForm extends javax.swing.JFrame implements Observer{
     File stockItemSoldFile = new File("./assets/AshersSportsCollectiveSold.csv");
     private static List<TransactionHistory> allTransactionHistory = TransactionHistory.loadModuleCSV();
     private static List<ASCStockItem> allASCStockItem = ASCStockItem.loadASCStockItemCSV();
-    
-   
-    
     private static List<MSMStockItem> allMeganStockItem = MSMStockItem.loadStock();
     private static List<MeganAdapter> allMeganAdaptedStockItem = new ArrayList<>();
-
-//    adapteMsmStockItems(allMeganStockItem, allMeganAdaptedStockItem);
-
     private static List<ASCStockInterface> allStockItems = new ArrayList<>();
-    
 
     /**
      * Creates new form StockItemForm
      */
     public StockItemForm() {
         initComponents();
-        
-        
-        adapteMsmStockItems();
+        adapteMSMStockItems();
         stockItemTable.setModel(new StockItemModel(allStockItems));
         transactionHistoryTable.setModel(new TransactionHistoryModel(allTransactionHistory));
         confirmCloseAction();
@@ -82,40 +71,44 @@ public class StockItemForm extends javax.swing.JFrame implements Observer{
     
     private void confirmCloseAction() {
         addWindowListener(new WindowAdapter() {
-            String newline = System.lineSeparator();
+            
             @Override
             public void windowClosing(WindowEvent e) {
-                final List<String> tempStockArray = new ArrayList<>();
                 int option = JOptionPane.showConfirmDialog(null, "Do you want to close this window?", "Confirmation", JOptionPane.YES_NO_OPTION);
                 if(option == JOptionPane.YES_OPTION) {
-                    for (ASCStockInterface stock : allStockItems) {
-                        sBuilder.append(stock.getProductCode());
-                        sBuilder.append(",");
-                        sBuilder.append(stock.getProductTitle());
-                        sBuilder.append(",");
-                        sBuilder.append(stock.getProductDesc());
-                        sBuilder.append(",");
-                        sBuilder.append(stock.getProductPriceInPounds());
-                        sBuilder.append(",");
-                        sBuilder.append(stock.getProductPriceInPence());
-                        sBuilder.append(",");
-                        sBuilder.append(stock.getQtyInStock());
-                        sBuilder.append(newline);
-                    }
-                    writeToFile(output,stockItemFile, sBuilder.toString(), false);
-                    System.out.println("I HAVE CLOSED OOOOO");
+                    writeUpdateStockDetailsToFile();
+                    System.out.println("ROGRAM CLOSED!");
                 }
             }
+            
         });
     }
+
+    private void writeUpdateStockDetailsToFile() {
+        String newline = System.lineSeparator();
+        for (ASCStockInterface stock : allStockItems) {
+            sBuilder.append(stock.getProductCode());
+            sBuilder.append(",");
+            sBuilder.append(stock.getProductTitle());
+            sBuilder.append(",");
+            sBuilder.append(stock.getProductDesc());
+            sBuilder.append(",");
+            sBuilder.append(stock.getProductPriceInPounds());
+            sBuilder.append(",");
+            sBuilder.append(stock.getProductPriceInPence());
+            sBuilder.append(",");
+            sBuilder.append(stock.getQtyInStock());
+            sBuilder.append(newline);
+        }
+        writeToFile(output,stockItemFile, sBuilder.toString(), false);
+    }
     
-    private static void adapteMsmStockItems() {
+    private static void adapteMSMStockItems() {
         for (MSMStockItem stock : allMeganStockItem) {
           MeganAdapter adaptedItem = new MeganAdapter(stock);
             allMeganAdaptedStockItem.add(adaptedItem);
         }
         allStockItems.addAll(allMeganAdaptedStockItem);
-
         allStockItems.addAll(allASCStockItem);
     }
     
@@ -287,12 +280,17 @@ public class StockItemForm extends javax.swing.JFrame implements Observer{
     private void addStockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addStockActionPerformed
         int isSelectedRow = stockItemTable.getSelectedRow();     // TODO add your handling code here:
         if(isSelectedRow != -1) {
+            //Construct Stock update dialog with input field
             JTextField stockValue = new JTextField();
             JPanel buyStockFormJPanel = new JPanel(new GridLayout(2, 2));
             buyStockFormJPanel.add(new JLabel("Enter quantity to Add"));
             buyStockFormJPanel.add(stockValue);
+
+            //Display the constructed Dialog window
             int selectedOption = JOptionPane.showConfirmDialog(null, buyStockFormJPanel, "Buy/Add More Stock Item", JOptionPane.OK_CANCEL_OPTION );
+
             if(selectedOption == JOptionPane.OK_OPTION && (stockValue.getText().length() > 0)) {
+                // Get, compute and update table with the new stock quantity
                 String _stockValue = stockValue.getText();
                 int inputedStockValue = Integer.parseInt(_stockValue);
                 ASCStockInterface selectedStock = allStockItems.get(isSelectedRow);
@@ -313,29 +311,23 @@ public class StockItemForm extends javax.swing.JFrame implements Observer{
         String newline = System.lineSeparator();
         int isSelectedRow = stockItemTable.getSelectedRow();     // TODO add your handling code here:
         if(isSelectedRow != -1) {
+            // Construct stock update dialog box
             JTextField stockValue = new JTextField();
             JPanel sellStockFormJPanel = new JPanel(new GridLayout(2, 2));
             sellStockFormJPanel.add(new JLabel("Enter quantity to sell"));
             sellStockFormJPanel.add(stockValue);
+
+            // Display the constructed dialog box
             int selectedOption = JOptionPane.showConfirmDialog(null, sellStockFormJPanel, "Sell Stock Item", JOptionPane.OK_CANCEL_OPTION );
             if(selectedOption == JOptionPane.OK_OPTION && (stockValue.getText().length() > 0)) {
+                // Get, compute and update the table with the selected object new stock quantity
                 String _stockValue = stockValue.getText();
                 int inputedStockValue = Integer.parseInt(_stockValue);
                 ASCStockInterface selectedStock = allStockItems.get(isSelectedRow);
                 int inStock = selectedStock.getQtyInStock();
                 int newStockQuantity = inStock - inputedStockValue;
                 selectedStock.setQuanity(newStockQuantity);
-                SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");  
-                Date date = new Date();  
-                stockItemTable.updateUI();
-                inStock = selectedStock.getQtyInStock();
-//                if(inStock <= 5) {
-//                    String productCode = selectedStock.getProductCode();
-//                    JOptionPane.showMessageDialog(null, productCode+" quantity left: " + inStock, "Low Stock Alert", JOptionPane.WARNING_MESSAGE);
-//                }
-                    
-                String stockItemSold = formatter.format(date) +","+ selectedStock.getProductCode() + "," + inputedStockValue +"," +selectedStock.getHumanFriendlyUnitPrice() + newline;
-                writeToFile(output,stockItemSoldFile, stockItemSold, true);
+                writeStockTransactionToFile(newline, inputedStockValue, selectedStock);
             }else {
                 JOptionPane.showMessageDialog(null, "Kindly Enter a value", "Note", JOptionPane.WARNING_MESSAGE);
             }
@@ -344,9 +336,19 @@ public class StockItemForm extends javax.swing.JFrame implements Observer{
         }        // TODO add your handling code here:
     }//GEN-LAST:event_sellStockActionPerformed
 
+    private void writeStockTransactionToFile(String newline, int inputedStockValue, ASCStockInterface selectedStock) {
+        int inStock;
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");  
+        Date date = new Date();  
+        stockItemTable.updateUI();
+        inStock = selectedStock.getQtyInStock();                  
+        String stockItemSold = formatter.format(date) +","+ selectedStock.getProductCode() + "," + inputedStockValue +"," +selectedStock.getHumanFriendlyUnitPrice() + newline;
+        writeToFile(output,stockItemSoldFile, stockItemSold, true);
+    }
+
     private void createNewStockItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createNewStockItemActionPerformed
                 // TODO add your handling code here:
-        constructNewStockForm();
+        constructAndDisplayCreateNewStockDialogForm();
         stockItemTable.updateUI();
     }//GEN-LAST:event_createNewStockItemActionPerformed
 
@@ -367,7 +369,8 @@ public class StockItemForm extends javax.swing.JFrame implements Observer{
         // TODO add your handling code here:
     }//GEN-LAST:event_deleteStockBtnActionPerformed
 
-    private void constructNewStockForm() {
+    private void constructAndDisplayCreateNewStockDialogForm() {
+        // construct the input fields
         JRadioButton runningDept = new JRadioButton();
         JRadioButton swimmingDept = new JRadioButton();
         JRadioButton cyclingDept = new JRadioButton();
@@ -404,7 +407,7 @@ public class StockItemForm extends javax.swing.JFrame implements Observer{
         newStockFormJPanel.add(new JLabel("Quantity"));
         newStockFormJPanel.add(quantity);
         
-
+        // display the form with input fields
         int selectedOption = JOptionPane.showConfirmDialog(null, newStockFormJPanel, "New Stock Item Form", JOptionPane.OK_CANCEL_OPTION );
         if(selectedOption == JOptionPane.OK_OPTION && (cyclingDept.isSelected() || runningDept.isSelected() || swimmingDept.isSelected())) {
            String _title = title.getText();
@@ -412,17 +415,7 @@ public class StockItemForm extends javax.swing.JFrame implements Observer{
            String _price_in_pounds = price_in_pounds.getText();
            String _price_in_pence = price_in_pence.getText();
            String _quantity = quantity.getText();
-           int department = 0;
-           if(runningDept.isSelected()) {
-               department = 1;
-           }
-           if(swimmingDept.isSelected()) {
-               department = 2;
-           }
-
-           if(cyclingDept.isSelected()) {
-               department = 3;
-           }
+           int department = getSelectStockDepartment(runningDept, swimmingDept, cyclingDept);
         
            ASCStockItem newStockItem  = new ASCStockItem(department, _title, _description, Integer.parseInt(_price_in_pounds), Integer.parseInt(_price_in_pence), Integer.parseInt(_quantity));
            allStockItems.add(newStockItem);
@@ -432,6 +425,17 @@ public class StockItemForm extends javax.swing.JFrame implements Observer{
        }
         // return selectedOption;
     }
+
+    private int getSelectStockDepartment(JRadioButton runningDept, JRadioButton swimmingDept, JRadioButton cyclingDept) {
+        int department = 0;
+        if(runningDept.isSelected()) { department = 1; }
+
+        if(swimmingDept.isSelected()) { department = 2;}
+        
+        if(cyclingDept.isSelected()) { department = 3; }
+        return department;
+    }
+    
 
     /**
      * @param args the command line arguments

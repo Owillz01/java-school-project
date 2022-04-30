@@ -33,11 +33,15 @@ public class MeganAdapter implements ASCStockInterface{
     public String getProductCode() {
         String _code = mSMStockItem.getCode();
         int _id = mSMStockItem.getDepartmentId();
+        
         String _dept = "";
         switch (_id) {
             case 1:_dept = "RUN";
+                    break;
             case 2: _dept = "SWM";
+                    break;
             case 3:_dept = "CYC";
+                    break;
         }     
         return _dept+"-"+_code+"-MSM";
     }
@@ -55,7 +59,7 @@ public class MeganAdapter implements ASCStockInterface{
      */
     @Override
     public String getProductDesc() {
-        return mSMStockItem.getDescription();
+        return mSMStockItem.getDescription().replaceAll("\u00a0", "").stripLeading();
     }
 
     /** Returns an adapted product pence price
