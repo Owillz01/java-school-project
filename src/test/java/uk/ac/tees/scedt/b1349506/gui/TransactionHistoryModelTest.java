@@ -4,6 +4,7 @@
  */
 package uk.ac.tees.scedt.b1349506.gui;
 
+import java.util.ArrayList;
 import java.util.List;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.AfterAll;
@@ -18,7 +19,7 @@ import uk.ac.tees.scedt.b1349506.TransactionHistory;
  * @author godsw
  */
 public class TransactionHistoryModelTest {
-    private final List<TransactionHistory> allStockItemsSold = null;
+    private List<TransactionHistory> allStockItemsSold = null;
     
     public TransactionHistoryModelTest() {
     }
@@ -33,7 +34,8 @@ public class TransactionHistoryModelTest {
     
     @BeforeEach
     public void setUp() {
-        TransactionHistory stock = new TransactionHistory("26/04/2022 18:03:56", "CYC-123456-MSM", 5, 10.99);
+        allStockItemsSold = new ArrayList();
+        TransactionHistory stock = new TransactionHistory("26/04/2022 18:03:56", "CYC-123456-MSM", 5, "10.99");
         allStockItemsSold.add(stock);
     }
     

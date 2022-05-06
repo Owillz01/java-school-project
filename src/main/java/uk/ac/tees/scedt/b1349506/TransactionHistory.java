@@ -23,7 +23,7 @@ public class TransactionHistory {
     private final String dateAndTime;
     private final String productCode;
     private final int quantitySold;
-    private final double unitPrice;
+    private final String unitPrice;
     
     /**
      *
@@ -32,7 +32,7 @@ public class TransactionHistory {
      * @param quantitySold
      * @param unitPrice
      */
-    public TransactionHistory(String dateAndTime, String productCode, int quantitySold, double unitPrice) {
+    public TransactionHistory(String dateAndTime, String productCode, int quantitySold, String unitPrice) {
         this.dateAndTime = dateAndTime;
         this.productCode = productCode;
         this.unitPrice = unitPrice;
@@ -65,7 +65,7 @@ public class TransactionHistory {
      * Returns the unit price of a transaction
      * @return int as unit price value
      */
-    public double getUnitPrice() {
+    public String getUnitPrice() {
         return unitPrice;
     }
 
@@ -79,7 +79,7 @@ public class TransactionHistory {
             while (fileScanner.hasNextLine()) {
                 final String[] columns = fileScanner.nextLine().split(",");
                 TransactionHistory stockItem;
-                stockItem = new TransactionHistory(columns[0].replaceAll("ï»¿", ""), columns[1].replaceAll("Â", " "), Integer.parseInt(columns[2]), Double.parseDouble(columns[3]));
+                stockItem = new TransactionHistory(columns[0].replaceAll("ï»¿", ""), columns[1].replaceAll("Â", " "), Integer.parseInt(columns[2]), columns[3]);
                 allStockItemsSold.add(stockItem);
             }
         }catch (FileNotFoundException ex) {

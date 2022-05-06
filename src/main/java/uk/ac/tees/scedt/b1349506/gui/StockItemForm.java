@@ -328,10 +328,10 @@ public class StockItemForm extends javax.swing.JFrame implements Observer{
                 int newStockQuantity = inStock - inputedStockValue;                
                 selectedStock.setQuanity(newStockQuantity);
                 writeStockTransactionToFile(newline, inputedStockValue, selectedStock);
+                
                 if (selectedStock.getQtyInStock() <= 5) {
                     selectedStock.updateObserver();                   
-                }
-                
+                }                
             }else {
                 JOptionPane.showMessageDialog(null, "Kindly Enter a value", "Note", JOptionPane.WARNING_MESSAGE);
             }
@@ -345,7 +345,10 @@ public class StockItemForm extends javax.swing.JFrame implements Observer{
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");  
         Date date = new Date();  
         stockItemTable.updateUI();
-        inStock = selectedStock.getQtyInStock();                  
+        inStock = selectedStock.getQtyInStock(); 
+        TransactionHistory newHistory = new TransactionHistory(formatter.format(date),selectedStock.getProductCode(), inputedStockValue, selectedStock.getHumanFriendlyUnitPrice() );
+        allTransactionHistory.add(newHistory);
+        transactionHistoryTable.updateUI();
         String stockItemSold = formatter.format(date) +","+ selectedStock.getProductCode() + "," + inputedStockValue +"," +selectedStock.getHumanFriendlyUnitPrice() + newline;
         writeToFile(output,stockItemSoldFile, stockItemSold, true);
     }
@@ -416,8 +419,8 @@ public class StockItemForm extends javax.swing.JFrame implements Observer{
         if(selectedOption == JOptionPane.OK_OPTION && (cyclingDept.isSelected() || runningDept.isSelected() || swimmingDept.isSelected())) {
            String _title = title.getText();
            String _description = description.getText();
-           String _price_in_pounds = price_in_pounds.getText();
-           String _price_in_pence = price_in_pence.getText();
+           String _price_in_pounds = price_in_pounds.getText().equals("") ? "0" : price_in_pounds.getText();
+           String _price_in_pence = price_in_pence.getText().equals("") ? "0" : price_in_pence.getText();
            String _quantity = quantity.getText();
            int department = getSelectStockDepartment(runningDept, swimmingDept, cyclingDept);
         

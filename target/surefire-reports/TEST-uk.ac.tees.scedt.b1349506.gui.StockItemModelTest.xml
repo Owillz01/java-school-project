@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="4" failures="0" name="uk.ac.tees.scedt.b1349506.gui.StockItemModelTest" time="0.024" errors="0" skipped="0">
+<testsuite tests="4" failures="0" name="uk.ac.tees.scedt.b1349506.gui.StockItemModelTest" time="0.026" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
     <property name="java.vm.version" value="11.0.14+9"/>
@@ -66,8 +66,8 @@
     <property name="sun.desktop" value="windows"/>
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
-  <testcase classname="uk.ac.tees.scedt.b1349506.gui.StockItemModelTest" name="uk.ac.tees.scedt.b1349506.gui.StockItemModelTest.testGetColumnName" time="0.003"/>
-  <testcase classname="uk.ac.tees.scedt.b1349506.gui.StockItemModelTest" name="uk.ac.tees.scedt.b1349506.gui.StockItemModelTest.testGetValueAt" time="0.02"/>
-  <testcase classname="uk.ac.tees.scedt.b1349506.gui.StockItemModelTest" name="uk.ac.tees.scedt.b1349506.gui.StockItemModelTest.testGetRowCount" time="0.001"/>
+  <testcase classname="uk.ac.tees.scedt.b1349506.gui.StockItemModelTest" name="uk.ac.tees.scedt.b1349506.gui.StockItemModelTest.testGetValueAt" time="0.026"/>
   <testcase classname="uk.ac.tees.scedt.b1349506.gui.StockItemModelTest" name="uk.ac.tees.scedt.b1349506.gui.StockItemModelTest.testGetColumnCount" time="0"/>
+  <testcase classname="uk.ac.tees.scedt.b1349506.gui.StockItemModelTest" name="uk.ac.tees.scedt.b1349506.gui.StockItemModelTest.testGetColumnName" time="0"/>
+  <testcase classname="uk.ac.tees.scedt.b1349506.gui.StockItemModelTest" name="uk.ac.tees.scedt.b1349506.gui.StockItemModelTest.testGetRowCount" time="0"/>
 </testsuite>
