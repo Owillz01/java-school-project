@@ -17,7 +17,7 @@ import uk.ac.tees.scedt.b1349506.TransactionHistory;
 public class TransactionHistoryModel extends AbstractTableModel {
     
     private final List<TransactionHistory> allStockItemsSold;
-    protected static String[] COLUMN_NAMES = {"Date", "Product Code", "Quantity Sold", "unnit Price"};
+    protected static String[] COLUMN_NAMES = {"Date", "Product Code", "Quantity Sold", "Unit Price"};
 
     /**
      * @param allStockItemsSold

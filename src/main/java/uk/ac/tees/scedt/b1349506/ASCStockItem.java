@@ -137,9 +137,9 @@ public class ASCStockItem implements ASCStockInterface{
     public void setQuanity(int newQuantity) {
         if(newQuantity >= 0) {
             qtyInStock = newQuantity;
-            if(qtyInStock <= 5){
-                updateObserver();
-            }
+//            if(qtyInStock <= 5){
+//                updateObserver();
+//            }
         }      
     }
 
@@ -214,6 +214,7 @@ public class ASCStockItem implements ASCStockInterface{
     @Override
     public void updateObserver() {
         for (Observer observers : observer) {
+            
             observers.notifyObserver(this);
         }    
     }

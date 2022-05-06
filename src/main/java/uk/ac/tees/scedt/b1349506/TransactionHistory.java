@@ -74,23 +74,17 @@ public class TransactionHistory {
      */
     public static List<TransactionHistory> loadModuleCSV() {
         List<TransactionHistory> allStockItemsSold = null ;
-
         try (final Scanner fileScanner = new Scanner(new FileReader("./assets/AshersSportsCollectiveSold.csv"))) {
             allStockItemsSold = new ArrayList<>();
-
             while (fileScanner.hasNextLine()) {
                 final String[] columns = fileScanner.nextLine().split(",");
                 TransactionHistory stockItem;
-
                 stockItem = new TransactionHistory(columns[0].replaceAll("ï»¿", ""), columns[1].replaceAll("Â", " "), Integer.parseInt(columns[2]), Double.parseDouble(columns[3]));
-
                 allStockItemsSold.add(stockItem);
             }
-
         }catch (FileNotFoundException ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
-
         return allStockItemsSold;
     }
    

@@ -325,9 +325,13 @@ public class StockItemForm extends javax.swing.JFrame implements Observer{
                 int inputedStockValue = Integer.parseInt(_stockValue);
                 ASCStockInterface selectedStock = allStockItems.get(isSelectedRow);
                 int inStock = selectedStock.getQtyInStock();
-                int newStockQuantity = inStock - inputedStockValue;
+                int newStockQuantity = inStock - inputedStockValue;                
                 selectedStock.setQuanity(newStockQuantity);
                 writeStockTransactionToFile(newline, inputedStockValue, selectedStock);
+                if (selectedStock.getQtyInStock() <= 5) {
+                    selectedStock.updateObserver();                   
+                }
+                
             }else {
                 JOptionPane.showMessageDialog(null, "Kindly Enter a value", "Note", JOptionPane.WARNING_MESSAGE);
             }
